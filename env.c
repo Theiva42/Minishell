@@ -1,14 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjoseph <rjoseph@student.42singapore.sg    +#+  +:+       +#+        */
+/*   By: thkumara <thkumara@student.42singapor      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 14:15:51 by rjoseph           #+#    #+#             */
-/*   Updated: 2024/12/26 14:20:37 by thkumara         ###   ########.fr       */
+/*   Created: 2024/12/27 15:04:17 by thkumara          #+#    #+#             */
+/*   Updated: 2024/12/27 15:10:51 by thkumara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include<stdio.h>
+#include<stdlib.h>
 
-//HELLO THEIVA!
-//Hello Aron!
+extern char	**environ;
+
+void	print_env_var(void)
+{
+	char	**env;
+
+	env = environ;
+	while (*env != NULL)
+	{
+		printf ("%s\n", *env);
+		env++;
+	}
+}
+
+int	main(void)
+{
+	print_env_var();
+	return (0);
+}
