@@ -31,22 +31,30 @@ int	ft_strcmp(char *s1, char *s2)
 
 void	change_dir(char *path)
 {
+	char	cwd[1024];
+	int	cd;
+	char	*home;
 	if (path == NULL || ft_strcmp(path, "") == 0)
 	{
-		char	*home;
-
-		home = getenv("Home");
+		home = getenv("HOME");
 		if (home != NULL)
 			path = home;
 		else
 			printf("cd: No home directory set: %s\n", home);
 		return;
 	}
-	int	cd = chdir(path);
+	getcwd(cwd, sizeof(cwd));
+	printf ("Current directory: %s\n", cwd);
+	cd = chdir(path);
 	if (cd == -1)
 			perror("cd");
 	else
-		printf ("Changed directory to: %s\n", path);
+	{
+		if (getcwd(cwd, sizeof(cwd)) != NULL)
+			printf ("pwd: %s\n", cwd);
+		else
+			perror("getcwd");
+	}
 }
 
 int	main(void)
