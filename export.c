@@ -6,7 +6,7 @@
 /*   By: rjoseph <rjoseph@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:47:23 by rjoseph           #+#    #+#             */
-/*   Updated: 2025/01/07 16:12:10 by rjoseph          ###   ########.fr       */
+/*   Updated: 2025/01/07 16:40:47 by rjoseph          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,19 @@ int	insert_var(char *var, char *av)
 
 	j = 0;
 	l = 0;
+	k = 0;
+	(void)var;
 	while (av[j] != '=')
 		j++;
 	j++;
 	if (av[j] == '"')
 		j++;
-	while (av[j] != NULL)
+	while (av[j] != '\0')
 	{
-		j = k;
+		k = j;
 		while (ft_isdigit(av[k]) == 1)
 			k++;
-		if (av[k + 1] == NULL)
+		if (av[k] == '\0')
 		{
 			k = k - j;
 			num = (char *)malloc((sizeof(char) * k) + 1);
@@ -96,33 +98,37 @@ int	insert_var(char *var, char *av)
 				exit(1);
 			else
 			{
-				while (av[j] != NULL)
+				while (av[j] != '\0')
 				{
 					num[l] = av[j];
 					l++;
 					j++;
 				}
 				l = atoi(num);
+				return (0);
 			}
 		}
-		else if (av[k + 1] != NULL)
+		else if (av[k] != '\0')
 		{
 			k = j;
-			while (av[k] != NULL)
+			while (av[k] != '\0')
 				k++;
 			line = (char *)malloc((sizeof(char) * k) + 1);
 			if (!line)
 				exit (1);
-			while (av[j] != NULL)
+			while (av[j] != '\0')
 			{
 				line[l] = av[j];
 				l++;
 				j++;
 			}
 			line[l] = '\0';
+			return (0);
 		}
 	}
+	return (0);
 }
+
 int	create_var(char **av, int i)
 {
 	int		j;
@@ -138,7 +144,7 @@ int	create_var(char **av, int i)
 	while (av[i][++j] != '=')
 		var[j] = av[i][j];
 	var[j] = '\0';
-	if (getenv(var) == NULL)
+	if (getenv(var) != NULL)
 		return (1);
 	else
 		insert_var(var, av[i]);
