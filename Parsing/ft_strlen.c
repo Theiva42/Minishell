@@ -9,9 +9,9 @@
 /*   Updated: 2024/05/19 20:42:27 by rjoseph          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stddef.h>
-#include "libft.h"
+#include "minishell.h"
 
+//hello
 size_t	ft_strlen(const char *s)
 {
 	int	count;
