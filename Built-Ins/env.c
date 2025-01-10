@@ -12,22 +12,20 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-extern char	**environ;
-
-void	print_env_var(void)
+void	print_env_var(char **envp)
 {
-	char	**env;
-
-	env = environ;
-	while (*env != NULL)
+	while (*envp != NULL)
 	{
-		printf ("%s\n", *env);
-		env++;
+		printf ("%s\n", *envp);
+		envp++;
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
-	print_env_var();
+	(void)ac;
+	(void)av;
+	
+	print_env_var(envp);
 	return (0);
 }
