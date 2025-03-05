@@ -6,11 +6,11 @@
 /*   By: rjoseph <rjoseph@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:09:09 by rjoseph           #+#    #+#             */
-/*   Updated: 2024/10/18 20:33:13 by rjoseph          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:58:52 by rjoseph          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "push_swap.h"
+#include <stdlib.h>
+#include "libft.h"
 
 static char	*strim(char *str, char de)
 {
