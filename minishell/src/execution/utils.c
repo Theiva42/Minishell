@@ -103,16 +103,21 @@ void    handle_export(char  *arg)
     char	**value;
     char    **env;
     char    *existing_value;
-    if (!arg)
+
+    int i = 0;
+        if (!arg)
 		{
-			write(2, "export: Argument missing\n", 26);
+            while(environ[i])
+            {
+                printf("declare -x %s\n", environ[i]);
+                i++;
+            }
 			return ;
 		}
         if (arg[0])
             env = ft_split(arg, ' ');
         else
-            env = &arg;		    
-        int i = 0;
+            env = &arg;
         while (env[i])
         {
             value = ft_split(env[i], '=');
@@ -134,14 +139,17 @@ void    handle_export(char  *arg)
             handle_newenv(value[i], value[i+1]);
             i++;
         }
+        free(env);
+        free(value);
         return ;
     }
 
-    void    handle_newenv(char *key, char *value)
+   void     handle_newenv(char *key, char *value)
     {
         int len;
         char    *env_entry;
         char    *env_key;
+        char    **split;
         int i;
 
         env_key = NULL;
@@ -150,7 +158,7 @@ void    handle_export(char  *arg)
         if (!env_entry)
         {
             perror("malloc failed");
-            return;
+            return ;
         }
         ft_strcpy(env_entry, key);
         ft_strcat(env_entry, "=");
@@ -158,18 +166,21 @@ void    handle_export(char  *arg)
         i = 0;
         while (environ[i])
         {
-            env_key = *ft_split(environ[i], '=');
-           printf("env_key %s\n", env_key);
-            if (env_key == key)
+            split = ft_split(environ[i], '=');
+            env_key = split[0];
+            if (ft_strcmp(env_key, key) == 0)
             {
-                printf("Inside if env_key %d is %s\n", i, env_key);
                 environ[i] = env_entry;
+                // free (split);
+                // free(env_entry);
                 return ;
             }
             i++;
         }
         environ[i] = env_entry;
         environ[i + 1] = NULL;
+        // free (split);
+        // free(env_entry);
     }
 
     int is_n_flag(char *str)

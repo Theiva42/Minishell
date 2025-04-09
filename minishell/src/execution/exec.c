@@ -6,11 +6,56 @@
 /*   By: thkumara <thkumara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 16:16:16 by thkumara          #+#    #+#             */
-/*   Updated: 2025/04/09 17:30:08 by thkumara         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:27:34 by thkumara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free_split(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return;
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+char *resolve_path(char *cmd) {
+	char **paths;
+	char *env_path;
+	char *full;
+	int i;
+
+	i = 0;
+	env_path = getenv("PATH");
+	if (!env_path || ft_strchr(cmd, '/'))
+		return ft_strdup(cmd);
+	paths = ft_split(env_path, ':');
+	while (paths[i]) 
+	{
+		full = malloc(ft_strlen(paths[i]) + ft_strlen(cmd) + 2);
+		ft_strcpy(full, paths[i]);
+		ft_strcat(full, "/");
+		ft_strcat(full, cmd);
+
+		if (access(full, X_OK) == 0)
+		{
+			ft_free_split(paths);
+			return full;
+		}
+		free(full);
+		i++;
+	}
+	ft_free_split(paths);
+	return NULL;
+}
 
 int	is_builtin(char	*cmd)
 {
@@ -61,7 +106,7 @@ int	execute_builtin(t_command *cmd)
 		return (0);
 	return (0);
 }
-void	execute_commands(t_command *cmd_head, char **envp)
+void	execute_commands(t_command *cmd_head)
 {
 	int fd_in;
 	int fd;
@@ -126,7 +171,13 @@ void	execute_commands(t_command *cmd_head, char **envp)
 				close(pipefd[1]);
 				close(pipefd[0]);
 			}
-			if (execve(cmd_head->argv[0], cmd_head->argv, envp) == -1)
+			char *full_path = resolve_path(cmd_head->argv[0]);
+			if (!full_path)
+			{
+				perror("Command not found");
+				exit(127);
+			}
+			if (execve(full_path, cmd_head->argv, environ) == 1)
 			{
 				perror("execve failed");
 				exit(EXIT_FAILURE);

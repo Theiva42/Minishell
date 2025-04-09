@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thkumara <thkumara@student.42singapor>     +#+  +:+       +#+        */
+/*   By: thkumara <thkumara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:38:43 by sbin-ham          #+#    #+#             */
-/*   Updated: 2025/04/01 13:03:06 by thkumara         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:11:54 by thkumara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char **tokens_to_args(t_token *tokens)
 	return (args);
 }
 
-int	main(int argc, char **argv, char *envp[])
+int	main(int argc, char **argv)
 {
 	char		*input;
 	t_token 	*tokens;
@@ -90,7 +90,7 @@ int	main(int argc, char **argv, char *envp[])
 			cmd = cmd->next;
 		}
 		if  (commands)
-			execute_commands(commands, envp);
+			execute_commands(commands);
 
 		// args = tokens_to_args(tokens);
 		// if (args && args[0])
