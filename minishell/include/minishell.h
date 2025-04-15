@@ -6,7 +6,7 @@
 /*   By: thkumara <thkumara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:58:54 by sbin-ham          #+#    #+#             */
-/*   Updated: 2025/04/09 19:12:08 by thkumara         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:36:36 by thkumara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 # include "libft.h"
 # include "lexer.h"
 # include "parser.h"
-# include <stdio.h>					// for printf
-# include <stdlib.h>				// for malloc, free, exit
-# include <unistd.h>				// for fork, execve, pipe
-# include <sys/wait.h>				// for wait
+# include <stdio.h>					
+# include <stdlib.h>				
+# include <unistd.h>				
+# include <sys/wait.h>				
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 extern char	**environ;
 
@@ -39,5 +40,6 @@ void    handle_echo(char **argv);
 size_t	ft_strcpy(char *dst, const char *src);
 int ft_strcmp(char *str1, char *str2);
 size_t	ft_strcat(char *dst, char *src);
+void    set_signals(void);
 
 #endif

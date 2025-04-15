@@ -6,7 +6,7 @@
 /*   By: thkumara <thkumara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:38:43 by sbin-ham          #+#    #+#             */
-/*   Updated: 2025/04/09 19:11:54 by thkumara         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:46:28 by thkumara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,13 @@ int	main(int argc, char **argv)
 	(void) argv;
 	while (1)
 	{
+		set_signals();
 		input = readline("minishell$ ");
 		if (!input)
-			break ;
+		{
+    		write(STDOUT_FILENO, "exit\n", 5);
+    		exit(0); // or your custom cleanup and exit
+		}
 		if (*input)
 			add_history(input);
 		if (ft_strncmp(input, "exit", 4) == 0 && input[4] == '\0')

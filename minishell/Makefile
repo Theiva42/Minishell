@@ -16,6 +16,7 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/parser.c \
 				$(SRC2_DIR)/exec.c \
 				$(SRC2_DIR)/utils.c \
+				$(SRC2_DIR)/signal.c \
 
 OBJ			= $(SRC:.c=.o)
 
